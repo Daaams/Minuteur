@@ -24,3 +24,8 @@ a {
     background: black;
   }
 }
+
+svg{
+  width: 0;
+  height: 0;
+}
