@@ -5,17 +5,22 @@
 .main {
   min-height: 100vh;
   padding: 4rem 0;
-  gap: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
-
+.chrono{
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
 .containerFace{
   width: 200px;
   height: 200px;
   perspective: 1000px;
   margin: 100px auto 0;
+  transform: translateY(-40px);
 }
 
 @mixin forme {
@@ -24,6 +29,7 @@
   position: relative;
   transform-style: preserve-3d;
 }
+
 .forme2{
   @include forme;
 }
@@ -51,6 +57,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid black;
 }
 
 .faceTop{
@@ -71,3 +78,6 @@
   transform: rotateX(0deg) translateZ(100px); 
 }
 
+.separateur{
+  font-size: 50px;
+}
