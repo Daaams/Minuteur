@@ -10,10 +10,10 @@ const mystyle = {
     return <p style={mystyle}>{variable}</p>
   }
 
-function Cube({heures, minutes, secondes}) {
+function Cube({secondes,  active}) {
     return (
         <div className={styles.containerFace}>
-          <div className={styles.forme}>
+          <div className={active ? styles.forme : styles.forme2}>
             <div className={styles.faceFront}>
               <Text variable={secondes}/>
             </div>
