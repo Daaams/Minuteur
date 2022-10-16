@@ -13,6 +13,10 @@ export default function Home() {
   const [minutes, setMinutes] = useState(0);
   const [heures, setHeures] = useState(0);
   const [activ, setActive] = useState(false);
+  const [Bdemarrer, setActiveDemarrer] = useState(true);
+  const [BStop, setActiveStop] = useState(false);
+  const [Braz, setActiveRaz] = useState(false);
+
 
   useEffect( ()=>{
     if (activ) {
@@ -33,16 +37,30 @@ export default function Home() {
   })
 
   function demarrerTemps(){
-    setActive(true);
+    if (Bdemarrer) {
+      setActive(true);
+      setActiveDemarrer(false);
+      setActiveStop(true); 
+    }
   }
   function stopTemps(){
-    setActive(false);
+    if (BStop) {
+      setActive(false);
+      setActiveStop(false);
+      setActiveDemarrer(true);
+      setActiveRaz(true);  
+    }
   }
   function reinitialiserTemps(){
-    setActive(false);
-    setHeures(0);
-    setMinutes(0);
-    setSecondes(0);
+    if (Braz) {
+      setHeures(h=>0);
+      setMinutes(m=>0);
+      setSecondes(s=>0);
+      setActive(false);
+      setActiveDemarrer(true);
+      setActiveRaz(false);
+      setActiveStop(false);  
+    }
   }
   return (
     <div className={styles.container}>
@@ -54,9 +72,9 @@ export default function Home() {
 
       <main className={styles.main}>
         <div className={boutons.container}>
-          <button onClick={demarrerTemps}>Demarer</button>
-          <button onClick={reinitialiserTemps}>Reinitialiser</button>
-          <button onClick={stopTemps}>Stop</button>
+          <button onClick={demarrerTemps} className={Bdemarrer?boutons.actif:boutons.nonActif}>Demarer</button>
+          <button onClick={stopTemps} className={BStop?boutons.actif:boutons.nonActif}>Stop</button>
+          <button onClick={reinitialiserTemps} className={Braz?boutons.actif:boutons.nonActif}>RAZ</button>
         </div>
         <div className={styles.chrono}>
           <CubeHeures heures={heures} minutes={minutes} secondes={secondes}/>
