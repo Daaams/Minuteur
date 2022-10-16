@@ -1,0 +1,73 @@
+.container {
+  padding: 0 2rem;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  gap: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerFace{
+  width: 200px;
+  height: 200px;
+  perspective: 1000px;
+  margin: 100px auto 0;
+}
+
+@mixin forme {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+.forme2{
+  @include forme;
+}
+
+.forme{
+  @include forme;
+  animation: rotation 1s linear infinite ; 
+}
+
+@keyframes rotation {
+  0%{
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  
+  100%{
+    transform: rotateX(-90deg) rotateY(0deg);
+  }
+}
+
+@mixin face {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.faceTop{
+  @include face;
+  transform: rotateX(90deg) translateZ(100px); 
+}
+
+.faceBottom{
+  @include face;
+  transform: rotateX(90deg) translateZ(-100px); 
+}
+.faceBack{
+  @include face;
+  transform: rotateX(-180deg) translateZ(100px); 
+}
+.faceFront{
+  @include face;
+  transform: rotateX(0deg) translateZ(100px); 
+}
+
