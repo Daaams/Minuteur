@@ -4,14 +4,18 @@ import CubeHeures from '../components/CubeHeures.js'
 import CubeSecondes from '../components/CubeSecondes.js'
 import CubeMinutes from '../components/CubeMinutes.js'
 import styles from '../styles/Home.module.scss'
+import boutons from '../styles/Boutons.module.css'
+
 
 export default function Home() {
 
   const [secondes, setSecondes] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [heures, setHeures] = useState(0);
+  const [activ, setActive] = useState(false);
 
   useEffect( ()=>{
+    if (activ) {
       setTimeout(()=>{
         if (secondes < 59) {
           setSecondes(secondes+1)          
@@ -24,19 +28,22 @@ export default function Home() {
           setMinutes(m => 0)
           setHeures(h => h+1)
         }
-      }, 1000)
+      }, 1000) 
+    }
   })
 
-  const mystyle = {
-    color: "black",
-    fontSize : "75px",
-    fontFamily: "Arial"
-  };
-
-  function Text({variable}){
-    return <p style={mystyle}>{variable}</p>
+  function demarrerTemps(){
+    setActive(true);
   }
-
+  function stopTemps(){
+    setActive(false);
+  }
+  function reinitialiserTemps(){
+    setActive(false);
+    setHeures(0);
+    setMinutes(0);
+    setSecondes(0);
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -46,13 +53,18 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <CubeHeures heures={heures} minutes={minutes} secondes={secondes}/>
-        <p>:</p>
-        <CubeMinutes minutes={minutes} secondes={secondes}/>
-        
-        <p>:</p>
-        <CubeSecondes secondes={secondes}/>
-        
+        <div className={boutons.container}>
+          <button onClick={demarrerTemps}>Demarer</button>
+          <button onClick={reinitialiserTemps}>Reinitialiser</button>
+          <button onClick={stopTemps}>Stop</button>
+        </div>
+        <div className={styles.chrono}>
+          <CubeHeures heures={heures} minutes={minutes} secondes={secondes}/>
+          <p className={styles.separateur}>:</p>
+          <CubeMinutes minutes={minutes} secondes={secondes}/>
+          <p className={styles.separateur}>:</p>
+          <CubeSecondes secondes={secondes} active={activ}/>
+        </div>
       </main>
     </div>
   )
